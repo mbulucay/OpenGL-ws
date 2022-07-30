@@ -1,0 +1,50 @@
+
+GLEW:
+    The OpenGL Extension Wrangler Library (GLEW) is a cross-platform open-source C/C++ extension loading library. GLEW provides efficient run-time mechanisms for determining which OpenGL extensions are supported on the target platform. OpenGL core and extension functionality is exposed in a single header file. GLEW has been tested on a variety of operating systems, including Windows, Linux, Mac OS X, FreeBSD, Irix, and Solaris.
+
+    - opengl extension wragler
+    - opengl icin bir arayuz isletim sistemi ile olan temel baglanti icin
+    cunku bir isletim sisteminde olmayan seyi kullanamk istediginde hata alirsin
+    onu ayarliyor bu sayede herhangi bir hata lamadan multi pltform app gelistirmene yardimci oluyor
+
+    1 #include <GL/glew.h>
+    2 initialize opengl context
+    3 glewExperimental = GL_TRUE
+    4 glewInit() != GLEW_OK
+        glewGetErrorString(result)
+
+    // bundan sonra opengl programi calistirmaya baslayabilirsin 
+
+    bir extension un sistemde olup olmadigina dair kontrolu icin 
+        if(GLEW_EXT_<extension_name>){
+
+        }
+
+GLFW:
+
+    GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. 
+    It provides a simple API for creating windows, contexts and surfaces, receiving input and events.
+
+    opengl icin pencere yonetimi kullanici inputlari gibi temel fonksiyonaliteleri 
+    kullanmamizi saglayan yardimci kutuphane
+
+    multi windows destekliyor
+
+    slternative : 
+        SDL : Simple directMedia Layer 
+            GLFW nun yaptiklarini neredeyse yapiyor ve buna ek olarak audio, threading, fille system gibi
+            ek yanlari da var.
+            GLFW biraz daha bunun hafifi
+        
+        SFML : Simple and Fast Multimedia Library 
+            SDL gibi ama daha cok ozellik iceriyor ekrana text koyma gibi 
+            ama opengl ile etkilesimi digerlerine nazaran daha zayif ve daha cok 2D isler icin kullaniliyor.
+
+        GLUT : OpenGL utilty toolkit
+            suan destek sunulmuyor
+        
+        Win32 Api: 
+            Daha low levelde yonetmeni saglar digerinde 2 satirda yapacagin islem bunda yuzlerce satir olabilir.
+            Zaten digerleri de bunun daha basitlastirilmis hali. 
+            Windows Os icin pencere yonetimini saglar
+            Low level istiyorsan bakabilirisn
