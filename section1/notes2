@@ -1,0 +1,35 @@
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+What is glViewport for and why it is not necessary sometimes?
+    https://gamedev.stackexchange.com/questions/147522/what-is-glviewport-for-and-why-it-is-not-necessary-sometimes
+
+1)
+I'll tell you why do we really need glViewport function.
+In typical rendering it may seem to have no sense - you just create some window or render target and draw on it, right? 
+I'd say that 95+% of apps works that way.
+But let's say your're writing an app like 3DS MAX, where you have you window split into 4 distinct renderings. 
+You remember your current split position and you manage Mouse events, 
+so when you hover over the split bar you may change mouse cursor to resizing one, etc. 
+When you drag your split bar you remember its new position and so on.
+When you want to render your 3D views you cal glViewport with position and size of your first 3D-subwindow and run typical GL commands 
+to draw here. OpenGL will automatically scale the rendering so it fits into the given viewport.
+You do the same for the rest of your viewports and at the end you get one window with few different renderings, 
+each with its own parameters. This way you can have as many distinct renderings on single window/render target as you want.
+
+2) 
+glViewport lets opengl know how to map the NDC coordinates to the framebuffer coordinates.
+By default it is set to the full size of the screen buffer. 
+So you only need to call it when the window gets resized or you actually want to change it.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
