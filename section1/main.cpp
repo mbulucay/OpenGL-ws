@@ -64,10 +64,20 @@ int main(){
         return 3;
     }
 
+    std::cout << glGetString(GL_VERSION) << std::endl;
+
     // notes2 q1
     glViewport(0, 0, bWidth, bHeight);  
 
     while(!glfwWindowShouldClose(window)){
+
+        glClear(GL_COLOR_BUFFER_BIT);
+        // GLclampf ;typedef float GLclampf;
+        glClearColor(0.2f, 1.0f, 0.5f, 0.3f);
+
+        // there are actually 2 buffer to manage a window scene
+        // one for the display user other one for editing the scene
+        glfwSwapBuffers(window);
 
         // handle user events
         // it uses signal i guess
@@ -80,14 +90,6 @@ int main(){
             Do not assume that callbacks you set will _only_ be called in response to event processing functions like this one. While it is necessary to poll for events, window systems that require GLFW to register callbacks of its own can pass events to GLFW in response to many window system function calls. 
             GLFW will pass those events on to the application callbacks before returning. Event processing is not required for joystick input to work.
         */
-
-        // GLclampf ;typedef float GLclampf;
-        glClearColor(0.2f, 1.0f, 0.5f, 0.3f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // there are actually 2 buffer to manage a window scene
-        // one for the display user other one for editing the scene
-        glfwSwapBuffers(window);
     }
 
     glfwDestroyWindow(window);

@@ -9,4 +9,4 @@ glew:
 	g++ glew_test.cpp  -o test -Wall -lGL -lGLU -lglut -lGLEW -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
 
 test:
-	g++ test.cpp  -o test -Wall -lglfw -lGL -lGLU -lglut -lGLEW -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lrt -ldl -lXinerama -lXcursor
+	g++ test.cpp -o test -Wall -lglfw -lGL -lGLU -lglut -lGLEW -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lrt -ldl -lXinerama -lXcursor
