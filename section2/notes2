@@ -1,0 +1,53 @@
+
+grafik kartini data ile dolduruyoruz bu data gpu vram uzerinde bir buffer olarak koyuluyor. 
+Bytelar olarak gosteriliyor. Bu bizim ne cizmek istedigimizin bilgisi.
+
+Sonra bu datai cizdirmek icin gpu'da bir buffer oluşturup, bu bufferi cizdirmek icin gpu'da bir komut yaziyoruz.
+Gpu da calisacak bu komutlara shader deniyor. Shaders execute on the GPU.
+Read the data then display on the screen.
+
+Tabi bu shader bu datayi okurken neye gore okuyacak nereden bilecek float larmi var kordinatlar mi normaller mi neler neler. .... . .. 
+Eger bunu vermessek byte coplugunden bir farki kalmaz. 
+Cunku her variable cesidi memoryi farkli sekilde interpret ediyor. 
+
+bu datanin ne icerdigini, layotunu biz verecegiz ki shader datanin anlamini biraz daha kavrasin
+
+mesela ilk 12 byte icerisinde x,y,z kordinatlarini iceren 3 float degeri tutuyor.
+sonraki 8 byte texture coordinatlarini tutuyor one for x(u), one for y(v).
+
+Vertex Attributes Pointer da bunu yapiyor layotu ayarlamamiza yardimci oluyor
+https://docs.gl/gl4/glVertexAttribPointer
+
+void glVertexAttribPointer(	GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid * pointer);
+void glVertexAttribIPointer( GLuint index, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer);
+void glVertexAttribLPointer( GLuint index, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer);
+
+index : belirli datalarin belirli yerlere koyulmasi
+    Specifies the index of the generic vertex attribute to be modified.
+
+size : vertexe ait data attribute sayisi
+    Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, 4. Additionally, 
+    the symbolic constant GL_BGRA is accepted by glVertexAttribPointer. The initial value is 4.
+
+type : 
+    Specifies the data type of each component in the array. 
+    The symbolic constants GL_BYTE, GL_UNSIGNED_BYTE, GL_SHORT, GL_UNSIGNED_SHORT, GL_INT, and GL_UNSIGNED_INT are accepted by glVertexAttribPointer 
+    and glVertexAttribIPointer. Additionally GL_HALF_FLOAT, GL_FLOAT, GL_DOUBLE, GL_FIXED, GL_INT_2_10_10_10_REV, GL_UNSIGNED_INT_2_10_10_10_REV 
+    and GL_UNSIGNED_INT_10F_11F_11F_REV are accepted by glVertexAttribPointer. GL_DOUBLE is also accepted by glVertexAttribLPointer 
+    and is the only token accepted by the type parameter for that function. The initial value is GL_FLOAT.
+
+normalized : bazi sayilati belirli bir aralikta degerlendirmek mesela 0-255 araliginda 123 0-1 araliginda neye denk geliyor 0.5
+    For glVertexAttribPointer, specifies whether fixed-point data values should be normalized (GL_TRUE) 
+    or converted directly as fixed-point values (GL_FALSE) when they are accessed.
+
+stride : vertex attributes arasindaki mesafeyi belirtir. yani bir vertex icin ne kadar byte data oldugunu belirtir.
+    Specifies the byte offset between consecutive generic vertex attributes. If stride is 0, 
+    the generic vertex attributes are understood to be tightly packed in the array. The initial value is 0.
+
+pointer : bir vertexde attribute icin data yeri belirtir.  |x|y|z|u|v|r|g|b|a|  bu vertex datasi icinde point edttigi yer
+    Specifies a offset of the first component of the first generic vertex attribute in the array 
+    in the data store of the buffer currently bound to the GL_ARRAY_BUFFER target. The initial value is 0.
+
+
+<!-- docs.gl -->
+<!-- vetex sadece bir noktanin pozisyonu degil icersinde daha bircok data var -->

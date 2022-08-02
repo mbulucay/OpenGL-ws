@@ -36,7 +36,6 @@ int main(){
 
     int bWidth, bHeight;
     glfwGetFramebufferSize(window, &bWidth, &bHeight);
-
     // glewin kullanmasai icin pencere atiyoruz bu fonksiyonla uygulamanadki pencerelerin arasinda istedigin gibi gezebilrisn ve birdenfazla window icerebilir
     glfwMakeContextCurrent(window);
 
@@ -57,12 +56,30 @@ int main(){
          0.5f, -0.5f 
     };
 
-    uint32_t id;
-    glGenBuffers(1, &id);
-    glBindBuffer(GL_ARRAY_BUFFER, id);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+    uint32_t bufferId;
+    glGenBuffers(1, &bufferId); // Gpu da yer alan bufferin id yani lokasyonu gibi bisey
+    glBindBuffer(GL_ARRAY_BUFFER, bufferId); // Bufferin ne icin nasil kullanacagimizi berlirledigimiz yer
+    glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW); // buffer icerisine datayi koyuyoruz ama 
+    // nasil handle edilmesi gerektigini de son parametre olarak gonderiyoruz
 
     // Binding photoshop taki layer sistemi gibi hangi layer a datalari kullanarak cizmek istiyorsan o layer a bind olmalisin
+
+    // void glEnableVertexAttribArray(	GLuint index);
+    // void glDisableVertexAttribArray(	GLuint index);
+    // void glEnableVertexArrayAttrib(	GLuint vaobj,
+    // GLuint index);
+    // void glDisableVertexArrayAttrib(	GLuint vaobj,
+    // GLuint index);
+    // glEnableVertexAttribArray and glEnableVertexArrayAttrib enable the generic vertex attribute array specified by index.
+    glEnableVertexAttribArray(0);
+
+    // 0-> 0 index datasi ilk oldugu icin
+    // 2-> vertexin data uzunlugu
+    // GL_FLOAT -> 2 de belirledigin seyin tipi 2 ne iki ne bu iki
+    // GL_FALSE -> normalize edilmesine gerek yok zaten floatlar
+    // sizeof(float) * 2 -> GL_SIZE stride -> vertex data uzunlugu byte cinsinde
+    // (const void*)0 -> Pointerin baslangic noktasi 
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
 
     while(!glfwWindowShouldClose(window)){
 

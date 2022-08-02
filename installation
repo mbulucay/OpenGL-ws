@@ -1,0 +1,36 @@
+ 
+ 1185  git clone https://github.com/libsdl-org/SDL
+ 1186  cd SDL/
+ 1187  ls
+ 1188  mkdir build
+ 1189  cd build
+ 1190  ../configure 
+ 1191  make
+ 1192  sudo make install
+ 1193  ls
+ 1194  sudo make install
+
+ 1199  sudo apt update
+ 1200  sudo apt-get install freeglut3-dev
+
+ 1215  sudo apt-get update
+ 1216  sudo apt-get -y install glew-utils
+
+ 1310  sudo apt-get install libglfw3
+ 1311  sudo apt-get install libglfw3-dev
+ 1312  sudo apt install xorg-dev
+ 1313  sudo apt install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules
+ 1314  clear
+ 1315  sudo apt update
+ 1316  sudo apt install build-essential
+ 1317  sudo apt install cmake
+ 1318  sudo apt install xorg-dev
+ 1319  git clone 
+ 1320  git clone https://github.com/glfw/glfw.git
+ 1321  cd glfw/
+ 1322  ls
+ 1323  cmake -G "Unix Makefiles"
+ 1324  make
+ 1325  sudo make install
+ 1326  sudo apt-get install libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-
+

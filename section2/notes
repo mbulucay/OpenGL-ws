@@ -1,5 +1,16 @@
 Shaders and Rendering Pipeline
 
+Shader:
+    A program just runs on the gpu what needs to do with vertex buffer
+
+
+diyelim ki bir ucgen cizeceksin opengl bunu cizmek icin gerekli adimlari biliyor ama senden bekledigi
+    senden bu buffer i kullanarak cizmeni istiyorum
+    senden bu shader i kullanarak cizmeni istiyorum
+    draw me a triangle
+
+STATE MACHINE
+
 Rendering Pipeline:
     Bir resmin rander edilip kullaniciya sonulmasi icin gectigi asamalar butunu
     Shader types:
@@ -180,4 +191,5 @@ HLSL:
     Direct3D 10 ve üzeri için gerekliliği bulunan standart haline gelmiş bir gölgelendirme dilidir
 
 
-
+VRAM:
+    Video Ram, Gpu Ram
