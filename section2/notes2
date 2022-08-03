@@ -63,3 +63,5 @@ drawcall -> vertex shader -> fragment shader -> framebuffer -> screen
 
 > fragment shader her pixel icin bir defa calisacak rasterize etmek icin yani ekrana cizmek icin
     asil amaci hangi renk vermek istedigini belirtmek. mesela lighting
+
+https://stackoverflow.com/questions/25219780/what-is-the-purpose-of-vao-in-opengl
