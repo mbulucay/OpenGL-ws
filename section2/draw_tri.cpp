@@ -26,7 +26,7 @@ int main(){
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     
-    GLFWwindow* window = glfwCreateWindow(width, height, "Hello world", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(width, height, "Triangle", nullptr, nullptr);
     
     if(window == nullptr){
         std::cout << "Error window creating" << std::endl;
@@ -81,12 +81,13 @@ int main(){
     // (const void*)0 -> Pointerin baslangic noktasi 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
 
+    // glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     while(!glfwWindowShouldClose(window)){
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
 

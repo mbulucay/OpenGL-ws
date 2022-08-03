@@ -51,3 +51,15 @@ pointer : bir vertexde attribute icin data yeri belirtir.  |x|y|z|u|v|r|g|b|a|  
 
 <!-- docs.gl -->
 <!-- vetex sadece bir noktanin pozisyonu degil icersinde daha bircok data var -->
+
+
+drawcall -> vertex buffer icerisinde vertexleri cizdiriyor.
+drawcall -> vertex shader -> fragment shader -> framebuffer -> screen 
+
+
+> vertex shader her vertex icin cagiriliyor one for each vertex.
+    asil amaci opengl e bind oluanan layout hakkinda icersinde bulunan vertexleri ve datlararini vermek ona gore
+    open gl ciziyor konumlari 
+
+> fragment shader her pixel icin bir defa calisacak rasterize etmek icin yani ekrana cizmek icin
+    asil amaci hangi renk vermek istedigini belirtmek. mesela lighting
