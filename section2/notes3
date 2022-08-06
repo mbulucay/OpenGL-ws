@@ -1,0 +1,29 @@
+
+GLSL:
+
+    Shader programlama dili 
+    https://tr.wikipedia.org/wiki/GLSL
+
+    layout (location = 0) in vec3 position;
+    // 0 etiketli bitler vec3 turune sahiptir ve position isimli degiskene baglanacaktir
+    // burda bir suru etiket olabilir ve her etiket bir vertexin farkli bir ozelligini tutar onun iicn 
+    // bir vertex structure i ini layoutlara yani etiketlere ayirip ne ise yaradiklarini belirt
+    void main() {
+        gl_Position = vec4(position, 1.0);
+    }
+
+    burda shader kedsine gelen position verisini isleme tabi tutmus ve gl_Position olarak kullanmis ve gl_Position u bir sonraki adima aktarmis
+
+
+    vertex shader:
+        3D donusum islemlerinden sorumludur.
+        Her nokta icin bir defa cagiriliyor 3gen icin 3 kez mesela 
+
+    fragmemt shader:
+        her pixel icin 1 defa cagiriliyor
+
+        out vec4 fragColor;
+        // bir sonraki adima gececek degiskeni belirliyoruz out ile tip ve varible name
+        void main(){
+            fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f)
+        }

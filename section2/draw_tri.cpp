@@ -47,6 +47,7 @@ static uint32_t CreateShader(const std::string& vertexShader, const std::string&
     glAttachShader(program, fragment_shader);
 
     glLinkProgram(program);
+    // her programda oldugu gibi programin duzgin executble olmasi  icin object dosylarini linkelemesin
     glValidateProgram(program);
 
     glDeleteShader(vertex_shader);
@@ -98,7 +99,7 @@ int main(){
     glViewport(0, 0, bWidth, bHeight);  
 
     float points[] = {
-        -0.5f, -0.5f,
+        -0.2f, -0.2f,
          0.0f,  0.5f,
          0.5f, -0.5f 
     };
