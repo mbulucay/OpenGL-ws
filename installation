@@ -15,6 +15,7 @@
 
  1215  sudo apt-get update
  1216  sudo apt-get -y install glew-utils
+        sudo apt-get install libglew-dev
 
  1310  sudo apt-get install libglfw3
  1311  sudo apt-get install libglfw3-dev

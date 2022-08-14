@@ -26,7 +26,7 @@ static ShaderSource parse_shader(const std::string& filepath){
 
 
 
-    std::ifstream file("/home/mbulucay/Desktop/OpenGL/section2/step2/resources/shaders/packet.shader");
+    std::ifstream file(filepath);
     std::stringstream ss[2]; // one for vertex other one fragment 0>vs 1>fs
     std::string line;
 
@@ -133,13 +133,16 @@ int main(){
     glViewport(0, 0, bWidth, bHeight);  
 
     float points[] = {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.5f,  0.5f,
+        -0.5f, -0.5f,   // bottom left 0
+         0.5f, -0.5f,   // bottom right 1
+         0.5f,  0.5f,   // top right 2
 
-         0.5f,  0.5f,
-        -0.5f,  0.5f,
-        -0.5f, -0.5f,
+        -0.5f,  0.5f,   // top left 3
+    };
+
+    uint32_t indices[] = {
+        0, 1, 2,
+        2, 3, 0
     };
 
     unsigned int vao;
@@ -151,12 +154,21 @@ int main(){
     glBindBuffer(GL_ARRAY_BUFFER, bufferId);
     glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
-
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
 
-    ShaderSource ss = parse_shader("/home/mbulucay/Desktop/OpenGL/section2/step2/resources/shaders/packet.shader");
+    uint32_t ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+
+    ShaderSource ss = parse_shader("resources/shaders/packet.shader");
+
+    std::cout << ss.FragmentS << std::endl;
+    std::cout << "=====================" << std::endl;
+    std::cout << ss.VertexS << std::endl;
 
     uint32_t shader = CreateShader(ss.VertexS.c_str(), ss.FragmentS.c_str());
     glUseProgram(shader);
@@ -169,8 +181,9 @@ int main(){
             glBindVertexArray(vao);
                 glEnableVertexAttribArray(0);
 
-                    glDrawArrays(GL_TRIANGLES, 0, 6);
-
+                    // glDrawArrays(GL_TRIANGLES, 0, 6);
+                    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+                    // Number of indices
 
                 glDisableVertexAttribArray(0);
             glBindVertexArray(0);
