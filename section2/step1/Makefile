@@ -10,3 +10,5 @@ udemy:
 youtube:
 	g++ draw.cpp -o test ${dep}
 
+clean:
+	rm -f test
