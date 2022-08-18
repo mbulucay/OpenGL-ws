@@ -6,5 +6,8 @@ translate:
 rotate:
 	g++ rotate.cpp -o rotate ${dep}
 
+scale:
+	g++ scale.cpp -o scale ${dep}
+
 clean:
-	rm -f translate rotate
+	rm -f translate rotate scale
