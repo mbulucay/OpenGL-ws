@@ -24,8 +24,6 @@ static ShaderSource parse_shader(const std::string& filepath){
     };
     ShaderType type = ShaderType::NONE;
 
-
-
     std::ifstream file(filepath);
     std::stringstream ss[2]; // one for vertex other one fragment 0>vs 1>fs
     std::string line;

@@ -6,6 +6,8 @@ cherno:
 uniform:
 	g++ apps/uniform.cpp -o uniform ${dep}
 
+sp:
+	g++ apps/mainSP.cpp src/ShaderP.cpp -o sp ${dep}
 
 clean:
-	rm -f test uniform
+	rm -f test uniform sp

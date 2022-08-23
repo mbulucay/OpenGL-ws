@@ -1,0 +1,23 @@
+
+opengl uygulamalarinda 2 farkli programdan bahsedebiliriz
+
+birisi CPU da calisan merkezi program bu bir kez calisiyor taki kapanana kadar
+    ekran kartinin calismasi icin gerekli cagrilari yapan ekran karti ayarlamarini yapan program
+    bildigin cpp programi main li olan  
+
+ikincisi GPU uzerinde calisan shader programlari
+    her cizim cagrisinda sifirdan baslayan program
+    shader programlari derlenip baglandiktan sonra herhangi birdegisiklige izin vermiyor 
+    ilk olrak ne ayarladiysan o
+
+    her cizimde yeniden calistigi icin icerinde bir varible kullanarak sekil uzerinnde kaydirma dondurme islmi yapmak mantiksiz
+    cunku zaten her seferinde en bastan calisitig icin veriyi tutmuyor !!! shader programi hatirlamaz !!! 
+
+    float moveX = 0.0f;
+
+    void main(){
+        gl_Position = vec4(inPos + (vec3(moveX, 0.0f, 0.0f) , 1.0f))
+        movex += 0.2f;
+    }
+
+    boyle bisey olamaz shader programi hatilamaz
