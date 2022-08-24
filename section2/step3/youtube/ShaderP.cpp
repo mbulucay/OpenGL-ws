@@ -1,4 +1,6 @@
+
 #include "shaderP.hpp"
+
 #include <iostream>
 
 #include <GL/glew.h>
@@ -6,11 +8,11 @@
 
 #include <fstream>
 #include <sstream>
+#include <string>
 
 ShaderProgram::ShaderProgram(){
     pId = glCreateProgram();
 }
-
 
 ShaderProgram::~ShaderProgram(){
     glDeleteProgram(pId);
@@ -50,8 +52,9 @@ void ShaderProgram::use(){
 
 void ShaderProgram::attachShader(const char* filepath, uint32_t type){
 
-    const char* shader = readShader(filepath).c_str();
-
+    std::string s =  readShader(filepath);
+    const char* shader = s.c_str();
+    
     uint32_t shaderId = glCreateShader(type);
     glShaderSource(shaderId, 1, &shader, nullptr);
     glCompileShader(shaderId);
@@ -73,6 +76,20 @@ void ShaderProgram::attachShader(const char* filepath, uint32_t type){
     glAttachShader(pId, shaderId);
 
     glDeleteShader(shaderId);
+}
+
+
+void ShaderProgram::addUniform(const std::string& uName){
+
+    uint32_t uId = glGetUniformLocation(pId, uName.c_str());
+    uniformMap.insert(std::pair<std::string, uint32_t>(uName, uId));
+}
+
+
+void ShaderProgram::setUniformValueFloat(const std::string& uName, const float value){
+
+    glUniform1f(uniformMap.at(uName), value);
+
 }
 
 

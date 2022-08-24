@@ -8,6 +8,20 @@
 
 #include "shaderP.hpp"
 
+float uMoveX = 0.0f;
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+
+    if(key == GLFW_KEY_ESCAPE)
+        glfwSetWindowShouldClose(window, 1);
+
+    if(key == GLFW_KEY_LEFT)
+        uMoveX -= 0.011;
+    
+    if(key == GLFW_KEY_RIGHT)
+        uMoveX += 0.011;
+}
+
 
 int main(){
 
@@ -22,6 +36,8 @@ int main(){
         glfwTerminate();
         return 1;
     }
+
+    glfwSetKeyCallback(window, key_callback);
 
     int bWidth, bHeight;
     glfwGetFramebufferSize(window, &bWidth, &bHeight);
@@ -42,16 +58,22 @@ int main(){
 
 
     ShaderProgram sp;
-    sp.attachShader("vertexS.glsl", GL_VERTEX_SHADER);
-    sp.attachShader("fragmentS.glsl", GL_FRAGMENT_SHADER);
+    sp.attachShader("./vertexS.glsl", GL_VERTEX_SHADER);
+    sp.attachShader("./fragmentS.glsl", GL_FRAGMENT_SHADER);
     sp.link();
     sp.validate();
+
+    sp.addUniform("uMoveX");
     sp.use();
 
     float points[] = {
         -0.2f, -0.2f, 0.0f,
          0.3f,  0.5f, 1.0f,
          0.5f, -0.5f, 0.3f
+         
+        -0.2f, -0.2f, 0.0f,
+         0.3f,  0.5f, 1.0f,
+         0.6f, -0.5f, 0.3f
     };
 
     uint32_t vao, vbo;
@@ -70,13 +92,14 @@ int main(){
 
     while(!glfwWindowShouldClose(window)){
 
-        glClearColor(0.7f, 0.2f, 0.7f, 1.0f);
+        glClearColor(1.0f, 0.5f, 0.7f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         sp.use();
+            sp.setUniformValueFloat("uMoveX", uMoveX);
             glBindVertexArray(vao);
                 glEnableVertexAttribArray(0);
-                glDrawArrays(GL_TRIANGLES, 0, 3);
+                glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwSwapBuffers(window);
 

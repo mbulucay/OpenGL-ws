@@ -1,3 +1,4 @@
+export MESA_GL_VERSION_OVERRIDE=3.3
 
 opengl uygulamalarinda 2 farkli programdan bahsedebiliriz
 
@@ -20,4 +21,18 @@ ikincisi GPU uzerinde calisan shader programlari
         movex += 0.2f;
     }
 
-    boyle bisey olamaz shader programi hatilamaz
+    boyle bisey olamaz shader programi hatirlamaz
+
+    ama uniform ile merkezi program icerindeki bir degisken verisine istedgin zaman erisebilirsin
+
+    uniform float UmoveX = 0.0f;
+
+    void main(){
+        gl_Position = vec4(inPos + (vec3(UmoveX, 0.0f, 0.0f) , 1.0f))
+    }
+
+
+    bu uniform degiskernler cizim isleminde guncelle degerini kullanamk icin cizim isleminden once goncerilmesi gerekir
+    shader icniernde bu degiskenleri degistirme hakkin yok sadece and programdan gpu ya bu degiskenin guncel degerin atabilrins
+
+

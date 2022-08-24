@@ -2,6 +2,7 @@
 #define SHADER_P_HPP
 
 #include <string>
+#include <map>
 
 class ShaderProgram{
 
@@ -16,7 +17,13 @@ class ShaderProgram{
 
         void use();
 
+        void addUniform(const std::string& uName);
+
+        void setUniformValueFloat(const std::string& uName, const float value);
+
     private:
+
+        std::map<std::string, uint32_t> uniformMap;
 
         std::string readShader(const char* filepath);
 

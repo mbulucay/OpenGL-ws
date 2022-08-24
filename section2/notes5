@@ -1,0 +1,28 @@
+Daha onceleri bir vertexlerin ozelliklerinde sadece nokta vardi ve fragment shaderda bir renk veriyorduk
+ama ne renk verirsek tum sekildeki vertexlerin alani rasterizarion yaotginda ayni rnek oluyrdu
+bunun yerine simdi vertexlere ek ozllikler vererek bu ayarlamalarda sekil icerinde noktalsal olrak daha fazla hakimiyetimiz olacak
+
+Bunun icinde koordinati nverilen iki nota arasinda interpolatoin adi verieln seyle bu iki nota arasini
+daha fazla kisma bolup bu kisimlar araasinda islem yapacagiz 
+
+interpolation resterizasyon asamasinda gerceklerisir
+
+stackOver flow:
+	https://stackoverflow.com/questions/12345622/what-is-interpolation-in-opengl
+You use interpolation when you have a limited amount of data trying to represent unlimited amount of data, 
+for instance, you have 2 points representing a line:
+
+For interpolation you always need a hint of representation, 
+in line case you need 2 points (and the hint is "it's a line"), 
+lets say they are vectors A and B. Now the solution is T(s) = A + s*(B-A) for any real number 's'
+to get endless line in both directions. To get a line between A and B 
+you need to define 's' on the interval [0, 1] so that T(0)=A while T(1)=B and this is linear interpolation.
+
+
+iki nokta arasi interpolation"
+
+    P1 -----------------t------------------------------------ P2
+
+    0 <= t <= 1    >>>>>>        x = P1 + (1 - t) (P2 - P1)
+
+    t ye verecegin deger ile bir dogurda bir noktayi bulabilirsin
