@@ -10,7 +10,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include <thread>
 #include <chrono>
 
@@ -188,8 +187,8 @@ int main(){
 
 
     float varX = 0.0f;
-    float varY = 1.0f;
-    float varZ = 0.5f;
+    float varY = 0.0f;
+    float varZ = 0.0f;
 
     while(!glfwWindowShouldClose(window)){
         
