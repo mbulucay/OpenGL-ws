@@ -30,10 +30,11 @@ static const char* vertex_shader = R"glsl(
     out vec4 vColor;
 
     uniform mat4 uModel;
+    uniform mat4 uProjection;
 
     void main(){
         
-        gl_Position = uModel * vec4(pos.x , pos.y, pos.z, 1.0f);
+        gl_Position =  uProjection * uModel * vec4(pos.x , pos.y, pos.z, 1.0f);
         vColor = vec4( clamp(pos.x, 0.0f, 1.0f),  clamp(pos.y, 0.0f, 1.0f), clamp(pos.z, 0.0f, 1.0f) , 1.0f);
 
     })glsl";
@@ -76,6 +77,7 @@ uint32_t add_shader(uint32_t type, const char* src){
 
 uint32_t pid;
 uint32_t uModel;
+uint32_t uProjection;
 void create_program(){
 
     uint32_t vsId = add_shader(GL_VERTEX_SHADER, vertex_shader);
@@ -114,6 +116,7 @@ void create_program(){
     }
 
     uModel = glGetUniformLocation(pid, "uModel");
+    uProjection = glGetUniformLocation(pid, "uProjection");
 
     glDeleteShader(vsId);
     glDeleteShader(fsId);
@@ -192,24 +195,22 @@ int main(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+    glm::mat4 projection = glm::perspective(45.0f, (float)bW /(float)bH, (float)0.1f, (float)100.0f);
+
+
     float angle = 0.0f;
-    float sX = 0.0f, sY = 0.0f, sZ = 0.0f;
+    float sX = 0.3f;
     bool wX = true;
+    float tY = 0.0f;
     while(!glfwWindowShouldClose(window)){
         
         glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        sX += (wX) ? (0.01) : (-0.1f);
-        // sY += 0.02;
-        // sZ += 0.05;
+        tY += (wX) ? (0.05) : (-0.05f);
 
-        // if(sX > 1) sX = 0.0f;
-        // if(sY > 1) sY = 0.0f;
-        // if(sZ > 1) sZ = 0.0f;
-
-        if(sX < 0) wX = true;
-        if(sX > 1) wX = false;
+        if(tY < -0.9) wX = true;
+        if(tY > 0.9) wX = false;
 
         glUseProgram(pid);
             glBindVertexArray(vao);
@@ -217,12 +218,13 @@ int main(){
                     
                     glm::mat4 model(1.0f);
 
-                    // model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+                    model = glm::translate(model, glm::vec3(tY, 0, -2.0f));
                     angle += 2;
-                    model = glm::rotate(model, angle * toRad, glm::vec3(0, 1, 0));
-                    model = glm::scale(model, glm::vec3(sX, sX, sX));
-                    
+                    // model = glm::rotate(model, angle * toRad, glm::vec3(0, 1, 0));
+                    model = glm::scale(model, glm::vec3(sX, sX, 0.7));
                     glUniformMatrix4fv(uModel, 1, GL_FALSE, glm::value_ptr(model));
+
+                    glUniformMatrix4fv(uProjection, 1, GL_FALSE, glm::value_ptr(projection));
 
                     glDrawElements(GL_TRIANGLES, 20, GL_UNSIGNED_INT, nullptr);
 

@@ -1,0 +1,23 @@
+Vertex shader icierninde 3 farkli temel matrisin olacak 
+
+birincisi model matirsin bu model matris ile
+seklini rahatc ascale edebilir dindurebilir ve transfome edebilirsin
+bu sayede surekli nokta gondermen gerekmze GPU ya verdiign noktaltri belirleding matrisle rile carparak
+sekil uzeinde gerekli islemleri yapabilrsin
+
+ikinciis projection matirsin bu matris panlede bulunan sekillerin senin gozune nasil gelecegiune dair 
+gerekli islermleri yapar yine keza ayni modeli projection matisi ile carpacak modelin 
+perspective mi paralel (ortographic) mi gorunecegine kara veririsin 
+
+        pic/Comparison_of_graphical_projections.svg
+
+
+ucuncuse de camera matisin bunu daha gormedin ama muhtemelen kamera uzeinde hareket edecegin zaman 
+sekillerin sana nasil gozukmesi gerektigi ile ilgiili bir bir matis carpani dusunku kamerayi saha hareket ettirdin 
+ama bu sekilleri sola hareket ettiemkele ayni sey degilmi bunun icin ha kera saga ha sekiller sola farketmez 
+suanlik aklima gelen bu ogrenince daha detayli yazarim
+
+        
+model - seklin uzatyde nerede oldugu ile ilgiili
+camera - herseye bakis acin ve konumun yani relative pozisyonun
+projection - obejeinin bize ne turde gorunecegi 

@@ -7,6 +7,8 @@ interpolation:
 index:
 	g++ indexDraws.cpp -o app ${dep}
 	
+projection:
+	g++ projection.cpp -o app ${dep}
 
 clean:
 	rm -f app

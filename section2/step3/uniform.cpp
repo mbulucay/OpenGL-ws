@@ -12,17 +12,15 @@
 #include <glm/gtc/type_ptr.hpp>
 
 const GLint width = 800, height = 600;
-const float toRad = 3.141592f / 180.0f;
 
-GLuint VAO, VBO, VBO2;
+GLuint VAO, VBO;
 uint32_t pid;
 uint32_t uniformModel;
-
+    
 bool direction = true;
 float offset = 0.0f;
 float maxOffset = 0.07f;
-float increment = 0.01f;
-
+float increment = 0.001f;
 
 static const char* vertex_shader = R"glsl(
     #version 330 core
@@ -31,15 +29,8 @@ static const char* vertex_shader = R"glsl(
     uniform mat4 model;
 
     void main(){
-        gl_Position = model * vec4(pos.x , pos.y, pos.z, 1.0f);
+        gl_Position = vec4(pos.x + xMove, pos.y, pos.z, 1.0f);
     })glsl";
-/* 
-    model ile carpiyoruz cunku translate edebilcek sekilde ayarladik ve mevcut pozisyonu kaydiracagiz
-
-    eger birim matrix olursa yer degistirmez ama biz offset i x yerine koyduk bu da demek oluyorki x yerine koydumuz degisken
-    sayesinde sekil x eksininde hareket saglaycak koydugumuz degiskene gore
-*/
-
 
 static const char* fragment_shader = R"glsl(
     #version 330 core
@@ -107,8 +98,10 @@ void create_program(){
         std::cerr << "Error validating program" << std::endl;
         return;
     }
+    
 
     uniformModel = glGetUniformLocation(pid, "model");
+
 
     glDeleteShader(vsId);
     glDeleteShader(fsId);
@@ -124,7 +117,6 @@ void create_shape(){
          0.5f,  0.5, 0.0f  // p4
     };
 
-
     // bu fonksiyonla grafik karti vertex arrayi olsuturuyoruz VAO olarak id veriyor
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -133,19 +125,19 @@ void create_shape(){
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
             glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
 
-
             glEnableVertexAttribArray(0);
-
+        
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
 
 }
 
-
 int main(int argc, char* argv[]){
+
 
 
     if(!glfwInit()){
@@ -180,47 +172,24 @@ int main(int argc, char* argv[]){
     create_shape();
     create_program();
 
-    float valTY = 0.0f; 
-    int rotZ = 0; 
-
     while(!glfwWindowShouldClose(window)){
 
-        if(valTY >= 1.0f)
-            valTY = -1.0f;
-        valTY += 0.01;
-
-        if(rotZ >= 360)
-            rotZ = 0;
-        rotZ++;
-
+    
         glClearColor(0.1f, 0.2f, 0.7f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // eger sabit ise bunlari while iicnde yazmana gerek yok ama pratik bu sekilde
         glUseProgram(pid);
-
             glBindVertexArray(VAO);
                 glEnableVertexAttribArray(0);
-                glBindVertexBuffer(0, VBO, 0, 3 * sizeof(float));
-                    
+
                     // glUniform1f(uniformModel, offset);
-                    glm::mat4 model(1.0f);
-                    // olusturulan model neden 1 constructor bilmiyorum
-                    
-                    // model = glm::translate(model, glm::vec3(offset / 4, 0.0f, 0.0f));
-                    //                  temel model matrixi, otelenmek istendigi icin carpilacak matrix
 
-                    model = glm::rotate(model, (rotZ % 360 )* toRad, glm::vec3(1.0f, 1.0f, 0.0f));
-                    //                  teeml model matrix i dondurulecek cismin hangi vectore gore dondurelecegi ... hangi eksen filan
-
-                    // model = glm::rotate(model, 13 *  toRad, glm::vec3(0.0f, 1.0f, 0.0f));
-                    /* 
-                        mesela bunda ucgen bozuluyor cunku dongurme dunya kooordinatlarin gore yapiliyor bu yuzden dunya koordinatlarina gore islem yapiliyor
-                        eger seklin bozulmasini istemiyorsan projection matrix kullanmalisn
-                    */
+                    glm::mat4 model;
+                    model = glm::translate(model, glm::vec3(offset, 0, 0));
 
                     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-                    //            degistirelcek degisken, 1, GL_FALSE, degistilecek veri kaynagi
+
                     glDrawArrays(GL_TRIANGLES, 0, 3);
 
             glBindVertexArray(0);
